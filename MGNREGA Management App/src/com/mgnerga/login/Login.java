@@ -17,7 +17,7 @@ public class Login {
 	
 	public void login_choice() throws SQLException{
 		
-		System.out.println("Welcome to MGNREGA... \n"
+		System.out.println("Welcome to MGNREGA Management App... \n"
 				+ "1. BDO Login \n"
 				+ "2. GPM Login \n"
 				+ "3. Exit");
