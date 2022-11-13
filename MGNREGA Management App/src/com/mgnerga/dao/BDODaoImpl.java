@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import com.mgnerga.login.Login;
 import com.mgnrega.util.DBUtil;
 
 
@@ -70,9 +71,11 @@ public class BDODaoImpl implements BDODao {
 				System.out.println("Enter BDO id:");
 				int bid=sc.nextInt();
 				
-				statement.execute("insert into gmp (gname, email, password, area, pincode, bId) " +
+				statement.execute("insert into gpm (gname, email, password, area, pincode, bId) " +
 						"values('" + gname + "','" + email+ "','" + password + "','" + area + "','" + pincode + "','" + bid + "')");
-				System.out.println("Done");
+				
+				System.out.println("GPM added successfully.....");
+				System.out.println("GPM Email: "+email+"\n"+"password"+password);
 				statement.close();
 				
 				
@@ -83,6 +86,70 @@ public class BDODaoImpl implements BDODao {
 				bdofun();
 			}
 	}
+	
+	
+	public void bdofun() {
+			
+			System.out.print("1.Create Gpm \n"
+					+ "2.Create Project \n"
+					+ "3.View Project \n"
+					+ "4.View all the GPM.\n"
+					+ "5. Exit");
+			System.out.println();
+			System.out.println("Choose an appropriate option");
+			int x=sc.nextInt();
+			
+			switch (x) {
+			case 1: {
+				
+				try {
+					createGMP();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+				break;
+			}
+			case 2:{
+				try {
+				createProject();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			case 3:{
+				try {
+					showAllProject();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage()); 
+				}
+				break;
+			}
+			case 4:{
+				    try {
+						showGMP();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+			case 5:{
+				System.out.println("Thank You");
+				Login l=new Login();
+				try {
+					l.login_choice();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + x);
+			}
+			
+		}
 
 	@Override
 	public void showGMP() throws SQLException {
@@ -91,13 +158,13 @@ public class BDODaoImpl implements BDODao {
 			
 			Statement statement =con.createStatement();
 			
-			ResultSet rs= statement.executeQuery("select * from gmp");
+			ResultSet rs= statement.executeQuery("select * from gpm");
 			
 			while ( rs.next()) {
 				System.out.println("-----------------------------------");
-				System.out.println("GMP name :- "+rs.getString("gname"));
-				System.out.println("GMP Emaail id :- "+rs.getString("email"));
-				System.out.println("GMP Password :- "+rs.getString("password"));
+				System.out.println("GPM name :- "+rs.getString("gname"));
+				System.out.println("GPM Emaail id :- "+rs.getString("email"));
+				System.out.println("GPM Password :- "+rs.getString("password"));
 				System.out.println("Area :- "+rs.getString("area"));
 				System.out.println("Pincode :- "+rs.getString("pincode"));
 				System.out.println("BDO ID :- "+rs.getInt("bid"));
